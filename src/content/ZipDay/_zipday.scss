@@ -1,0 +1,69 @@
+@import './overrides.scss';
+
+//Carbon breakpoints, tokens, and typography Sass mixins and functions
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
+@import 'carbon-components/scss/globals/scss/typography.scss';
+@import 'carbon-components/scss/globals/scss/vars.scss';
+
+.zdwrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f4f4f4;
+}
+
+.zdtitle {
+  margin: 32px 0px 16px 16px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 800;
+  font-size: 54px;
+  line-height: 64px;
+  color: #3c6df0;
+}
+
+.zddesc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px 0px 24px 16px;
+  color: #424747;
+}
+
+.pZC {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: #424747;
+  margin: 0px 0px 0px 16px;
+}
+
+.bMD {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: #424747;
+  margin: 24px 0px 8px 16px;
+}
+.zdbuttons {
+  display: flex;
+}
+
+.zdverifyLater {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #3c6df0;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 32px 0px 0px 16px;
+}
+
+.zdverifyCode {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #ffffff;
+  margin: 24px 0px 0px 16px;
+  white-space: nowrap;
+}
+
+.zdicon {
+  margin-left: auto;
+  padding-right: 8px;
+}

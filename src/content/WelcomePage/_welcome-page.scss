@@ -1,0 +1,75 @@
+@import './overrides.scss';
+
+//Carbon breakpoints, tokens, and typography Sass mixins and functions
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
+@import 'carbon-components/scss/globals/scss/typography.scss';
+@import 'carbon-components/scss/globals/scss/vars.scss';
+
+.wpwrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f4f4f4;
+}
+
+.wptitle {
+  margin: 32px 0px 16px 16px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 800;
+  font-size: 54px;
+  line-height: 64px;
+  color: #3c6df0;
+}
+
+.wpdesc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px 0px 24px 16px;
+  color: #424747;
+}
+
+.wpbuttons {
+  display: flex;
+}
+
+.verifyLater {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #3c6df0;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 32px 0px 0px 16px;
+}
+
+.verifyCode {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #ffffff;
+  margin: 24px 0px 0px 16px;
+  white-space: nowrap;
+}
+
+.wpicon {
+  margin-left: auto;
+  padding-right: 8px;
+}
+
+.wpinfo {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  color: #535a5a;
+  margin: -16px 0px 56px 16px;
+}
+
+.wpfooter {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  color: #535a5a;
+  padding: 16px 16px 0px 16px;
+  height: 104px;
+  background-color: #d0dada;
+  margin-top: auto;
+}
