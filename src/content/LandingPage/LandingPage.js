@@ -1,103 +1,122 @@
-import React from 'react';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  Tabs,
-  Tab,
-} from 'carbon-components-react';
-
-const props = {
-  tabs: {
-    selected: 0,
-    triggerHref: '#',
-    role: 'navigation',
-  },
-  tab: {
-    href: '#',
-    role: 'presentation',
-    tabIndex: 0,
-  },
-};
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import { Form, FormGroup, TextInput, Button } from 'carbon-components-react';
+import NavBar from '../../components/Navbar';
 
 const LandingPage = () => {
+  //state
+  const [page, setPage] = useState(1);
+  const [redirect, setRedirect] = useState(0);
+  const [sessionID, setSessionID] = useState('');
+  const [imgSRC, setImgSRC] = useState(
+    'https://cdn.pixabay.com/photo/2018/05/31/15/06/not-hear-3444212__340.jpg'
+  );
+  let timeOutSessions = [];
+  const submitForm = () => {
+    setRedirect(1);
+  };
+
+  const displayError = () => {
+    console.log('image loading error handler');
+
+    //Check for Authorization using sessionID
+    console.log('session Id is: ', sessionID);
+    let request2 = new Request('/validation/' + sessionID, {
+      method: 'get',
+    });
+
+    fetch(request2).then(response => {
+      response.json().then(data => {
+        console.log('THE BIG FINALE: ', data);
+        if (data.status == 'SUCCESS') {
+          let timer1 = setTimeout(() => {
+            setRedirect(1);
+          }, 2500);
+          timeOutSessions.push(timer1);
+        } else {
+          let timer2 = setTimeout(() => {
+            setRedirect(2);
+          }, 2500);
+          timeOutSessions.push(timer2);
+        }
+      });
+    });
+  };
+
+  const mobileIdentify = () => {
+    console.log('image loading handler');
+  };
+
+  const disconnectWireless = () => {
+    console.log('disconnect wireless');
+
+    timeOutSessions.forEach(timeOut => {
+      clearTimeout(timeOut);
+    });
+
+    setTimeout(() => {
+      setRedirect(2);
+    }, 2000);
+  };
+
+  // Use effect to start API call after page has loaded
+  useEffect(() => {
+    console.log('running API 1');
+    let request = new Request('/greeting', {
+      headers: new Headers({
+        'Content-Type': 'text/json',
+      }),
+      method: 'post',
+    });
+
+    fetch(request).then(response => {
+      response.json().then(data => {
+        console.log(data);
+        console.log(data.carrier);
+        setImgSRC(data.carrier);
+        setSessionID(data.session_id);
+      });
+    });
+  }, [page]);
+
   return (
-    <div className="bx--grid bx--grid--full-width landing-page">
-      <div className="bx--row landing-page__banner">
-        <div className="bx--col-lg-16">
-          <Breadcrumb noTrailingSlash aria-label="Page navigation">
-            <BreadcrumbItem>
-              <a href="/">Getting started</a>
-            </BreadcrumbItem>
-          </Breadcrumb>
-          <h1 className="landing-page__heading">
-            Design &amp; build with Carbon
-          </h1>
-        </div>
+    <>
+      <NavBar />
+      <div className="zdwrapper">
+        WELCOME TO THE LANDING
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/b/b5/Wireless-icon.png"
+          width="20px"
+          height="20px"
+          onClick={disconnectWireless}
+        />
       </div>
-
-      <div className="bx--row landing-page__r2">
-        <div className="bx--col bx--no-gutter">
-          <Tabs {...props.tabs} aria-label="Tab navigation">
-            <Tab {...props.tab} label="About">
-              <div className="bx--grid bx--grid--no-gutter bx--grid--full-width">
-                <div className="bx--row landing-page__tab-content">
-                  <div className="bx--col-md-4 bx--col-lg-7">
-                    <h2 className="landing-page__subheading">
-                      What is Carbon?
-                    </h2>
-                    <p className="landing-page__p">
-                      Carbon is IBM’s open-source design system for digital
-                      products and experiences. With the IBM Design Language as
-                      its foundation, the system consists of working code,
-                      design tools and resources, human interface guidelines,
-                      and a vibrant community of contributors.
-                    </p>
-                    <Button>Learn more</Button>
-                  </div>
-                  <div className="bx--col-md-4 bx--offset-lg-1 bx--col-lg-8">
-                    <img
-                      className="landing-page__illo"
-                      src={`${process.env.PUBLIC_URL}/tab-illo.png`}
-                      alt="Carbon illustration"
-                    />
-                  </div>
-                </div>
-              </div>
-            </Tab>
-            <Tab {...props.tab} label="Design">
-              <div className="bx--grid bx--grid--no-gutter bx--grid--full-width">
-                <div className="bx--row landing-page__tab-content">
-                  <div className="bx--col-lg-16">
-                    Rapidly build beautiful and accessible experiences. The
-                    Carbon kit contains all resources you need to get started.
-                  </div>
-                </div>
-              </div>
-            </Tab>
-            <Tab {...props.tab} label="Develop">
-              <div className="bx--grid bx--grid--no-gutter bx--grid--full-width">
-                <div className="bx--row landing-page__tab-content">
-                  <div className="bx--col-lg-16">
-                    Carbon provides styles and components in Vanilla, React,
-                    Angular, and Vue for anyone building on the web.
-                  </div>
-                </div>
-              </div>
-            </Tab>
-          </Tabs>
-        </div>
-      </div>
-
-      <div className="bx--row landing-page__r3">
-        <div className="bx--col-md-4 bx--col-lg-4">
-          <h3 className="landing-page__label">The Principles</h3>
-        </div>
-        <div className="bx--col-md-4 bx--col-lg-4">Carbon is Open</div>
-        <div className="bx--col-md-4 bx--col-lg-4">Carbon is Modular</div>
-        <div className="bx--col-md-4 bx--col-lg-4">Carbon is Consistent</div>
-      </div>
-    </div>
+      <img
+        src={imgSRC}
+        alt=""
+        width="1px"
+        height="1px"
+        onLoad={mobileIdentify}
+        onError={displayError}
+      />
+      {redirect == 1 ? (
+        <Redirect
+          to={{
+            pathname: '/zipday',
+            state: { id: sessionID },
+          }}
+        />
+      ) : redirect == 2 ? (
+        <Redirect
+          to={{
+            pathname: '/welcome',
+            state: { id: sessionID },
+          }}
+        />
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 

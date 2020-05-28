@@ -2,11 +2,11 @@ import React from 'react';
 
 const NavBar = () => {
   return (
-    <div class="nvbackground">
-      <div class="nvlogo">
-        <img src="https://via.placeholder.com/48x24" />
+    <div className="nvbackground">
+      <div className="nvlogo">
+        <img src="https://via.placeholder.com/48x24" alt="logo" />
       </div>
-      <div class="nvtitle">Open Insurance</div>
+      <div className="nvtitle">Open Insurance</div>
     </div>
   );
 };

@@ -2,31 +2,50 @@ import React, { useState } from 'react';
 import { Form, FormGroup, TextInput, Button } from 'carbon-components-react';
 import NavBar from '../../components/Navbar';
 import { Redirect } from 'react-router-dom';
+import Axios from 'axios';
 
-const Passcode = () => {
+const Passcode = props => {
   const [passcode, setPasscode] = useState('');
   const [redirect, setRedirect] = useState(false);
 
+  let sessionID = '';
+  if (props.location.state) {
+    sessionID = props.location.state.id;
+  }
+
   const submitForm = () => {
-    console.log('passcode button hit');
-    setRedirect(true);
+    let data = { passcode: passcode };
+    Axios({
+      method: 'post',
+      url: '/passcode/' + sessionID,
+      data: data,
+    }).then(
+      response => {
+        console.log('sendpasscode response: ', response);
+        setRedirect(true);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   };
 
   return (
     <>
       <NavBar />
-      <div class="pcwrapper">
-        <div class="pctitle">
+      <div className="pcwrapper">
+        <div className="pctitle">
           Confirm
           <br />
           Passcode
         </div>
-        <div class="pcdesc">
+        <div className="pcdesc">
           Please enter the passcode sent to your mobile phone.
         </div>
         <Form>
-          <FormGroup>
+          <FormGroup legendText="">
             <TextInput
+              labelText=""
               light
               type="password"
               id="passcodeInput"
@@ -35,27 +54,32 @@ const Passcode = () => {
               value={passcode}
               onChange={event => setPasscode(event.target.value)}
             />
-            <div class="pcbuttons">
-              <div class="pcverifyLater">
-                <a>Verify Later</a>
-              </div>
-              <div class="pcverifyCode">
+            <div className="pcbuttons">
+              <div className="pcverifyLater">Verify Later</div>
+              <div className="pcverifyCode">
                 <Button onClick={submitForm} id="passcodeButton" size="small">
                   Send Verification Code{' '}
-                  <span class="wpicon">
-                    <img src="https://via.placeholder.com/16" />
+                  <span className="wpicon">
+                    <img src="https://via.placeholder.com/16" alt="icon" />
                   </span>
                 </Button>
               </div>
             </div>
           </FormGroup>
         </Form>
-        <div class="pcinfo">Didn't receive a verification code?</div>
-        <div class="pcfooter">
-          <a>Request a new one.</a>
-        </div>
+        <div className="pcinfo">Didn't receive a verification code?</div>
+        <div className="pcfooter">Request a new one.</div>
       </div>
-      {redirect ? <Redirect to="/zipday" /> : ''}
+      {redirect ? (
+        <Redirect
+          to={{
+            pathname: '/zipday',
+            state: { id: sessionID },
+          }}
+        />
+      ) : (
+        ''
+      )}
     </>
   );
 };
