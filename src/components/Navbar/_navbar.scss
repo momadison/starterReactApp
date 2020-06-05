@@ -1,21 +1,17 @@
 .nvbackground {
   width: 100%;
-  height: 32px;
-  background-color: #d0dada;
+  height: 75px;
+  background-color: #000000;
   display: flex;
-  justify-content: center;
-  margin: auto;
+  justify-content: flex-start;
   padding-top: 8px;
   line-height: 32px;
-  align-items: center;
-  align-content: center;
-}
-
-.nvlogo {
-  margin-right: 6.87px;
+  align-items: flex-end;
+  color: #fff;
 }
 
 .nvtitle {
-  font-family: 'IBM Plex Sans', sans-serif;
-  margin-bottom: 10px;
+  margin: 0px 0px 16px 32px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 26px;
 }

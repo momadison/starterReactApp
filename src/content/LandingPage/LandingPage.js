@@ -2,115 +2,72 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, FormGroup, TextInput, Button } from 'carbon-components-react';
 import NavBar from '../../components/Navbar';
+import SkillBar from '../../components/Skillbar';
+import {
+  Accordion,
+  AccordionItem,
+  ContentSwitcher,
+  Switch,
+  Slider,
+} from 'carbon-components-react';
 
 const LandingPage = () => {
   //state
-  const [page, setPage] = useState(1);
   const [redirect, setRedirect] = useState(0);
-  const [sessionID, setSessionID] = useState('');
-  const [imgSRC, setImgSRC] = useState(
-    'https://cdn.pixabay.com/photo/2018/05/31/15/06/not-hear-3444212__340.jpg'
-  );
   let timeOutSessions = [];
   const submitForm = () => {
     setRedirect(1);
   };
 
-  const displayError = () => {
-    console.log('image loading error handler');
-
-    //Check for Authorization using sessionID
-    console.log('session Id is: ', sessionID);
-    let request2 = new Request('/validation/' + sessionID, {
-      method: 'get',
-    });
-
-    fetch(request2).then(response => {
-      response.json().then(data => {
-        console.log('THE BIG FINALE: ', data);
-        if (data.status == 'SUCCESS') {
-          let timer1 = setTimeout(() => {
-            setRedirect(1);
-          }, 2500);
-          timeOutSessions.push(timer1);
-        } else {
-          let timer2 = setTimeout(() => {
-            setRedirect(2);
-          }, 2500);
-          timeOutSessions.push(timer2);
-        }
-      });
-    });
-  };
-
-  const mobileIdentify = () => {
-    console.log('image loading handler');
-  };
-
-  const disconnectWireless = () => {
-    console.log('disconnect wireless');
-
-    timeOutSessions.forEach(timeOut => {
-      clearTimeout(timeOut);
-    });
-
-    setTimeout(() => {
-      setRedirect(2);
-    }, 2000);
-  };
-
-  // Use effect to start API call after page has loaded
-  useEffect(() => {
-    console.log('running API 1');
-    let request = new Request('/greeting', {
-      headers: new Headers({
-        'Content-Type': 'text/json',
-      }),
-      method: 'post',
-    });
-
-    fetch(request).then(response => {
-      response.json().then(data => {
-        console.log(data);
-        console.log(data.carrier);
-        setImgSRC(data.carrier);
-        setSessionID(data.session_id);
-      });
-    });
-  }, [page]);
+  const programmingLanguages = [
+    { type: 'Javascript', value: 95 },
+    { type: 'Python', value: 85 },
+    { type: 'Lua', value: 55 },
+    { type: 'C++', value: 70 },
+    { type: '.NET', value: 15 },
+    { type: 'Swift', value: 65 },
+  ];
 
   return (
     <>
       <NavBar />
-      <div className="zdwrapper">
-        WELCOME TO THE LANDING
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/b/b5/Wireless-icon.png"
-          width="20px"
-          height="20px"
-          onClick={disconnectWireless}
-        />
+      <div className="titleBar">
+        <div className="position">
+          Dynamic thinker and experienced developer with a proven record of
+          building and motivating teams, designing and driving sales strategies,
+          architecting and developing IT solutions, and managing projects from
+          concept to completion.
+        </div>
       </div>
-      <img
-        src={imgSRC}
-        alt=""
-        width="1px"
-        height="1px"
-        onLoad={mobileIdentify}
-        onError={displayError}
-      />
+      <div className="contentSwitcher">
+        <ContentSwitcher onChange={console.log}>
+          <Switch name={'first'} text="Education and Skills" />
+          <Switch name={'second'} text="Second section" />
+          <Switch name={'third'} text="Third section" />
+        </ContentSwitcher>
+      </div>
+      <div className="slider">
+        <SkillBar title="Programming Languages" data={programmingLanguages} />
+      </div>
+      {/* <div className="accordian">
+        <Accordion>
+          <AccordionItem title="Title 1"><p>The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially well on mobile interfaces or whenever vertical space is at a premium.</p></AccordionItem>
+          <AccordionItem title="Title 2"><p>The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially well on mobile interfaces or whenever vertical space is at a premium.</p></AccordionItem>
+          <AccordionItem title="Title 3"><p>The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially well on mobile interfaces or whenever vertical space is at a premium.</p></AccordionItem>
+        </Accordion>
+        </div> */}
       {redirect == 1 ? (
         <Redirect
           to={{
             pathname: '/zipday',
-            state: { id: sessionID },
+            state: { id: '1234' },
           }}
         />
       ) : redirect == 2 ? (
         <Redirect
           to={{
             pathname: '/welcome',
-            state: { id: sessionID },
+            state: { id: '1234' },
           }}
         />
       ) : (

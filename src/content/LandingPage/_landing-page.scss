@@ -1,0 +1,30 @@
+.titleBar {
+  height: 150px;
+  background-color: #e7edf1;
+  background-image: url('https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+  background-size: cover;
+}
+
+.position {
+  padding: 28px 28px 0px 32px;
+  font-size: 20px;
+  font-family: 'Roboto Mono', monospace;
+  line-height: 32px;
+  color: #ffffff;
+  opacity: 1;
+  font-weight: 900;
+}
+
+.slider {
+  margin: 32px 0px 0px 32px;
+}
+
+.slider span {
+  margin-bottom: 25px;
+}
+
+.bx--content-switcher__label {
+  font-size: 16px;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bolder;
+}

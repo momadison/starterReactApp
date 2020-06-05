@@ -33,43 +33,33 @@ const Passcode = props => {
   return (
     <>
       <NavBar />
-      <div className="pcwrapper">
-        <div className="pctitle">
-          Confirm
-          <br />
-          Passcode
-        </div>
-        <div className="pcdesc">
-          Please enter the passcode sent to your mobile phone.
-        </div>
-        <Form>
-          <FormGroup legendText="">
-            <TextInput
-              labelText=""
-              light
-              type="password"
-              id="passcodeInput"
-              invalidText="Invalid"
-              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-              value={passcode}
-              onChange={event => setPasscode(event.target.value)}
-            />
-            <div className="pcbuttons">
-              <div className="pcverifyLater">Verify Later</div>
-              <div className="pcverifyCode">
-                <Button onClick={submitForm} id="passcodeButton" size="small">
-                  Send Verification Code{' '}
-                  <span className="wpicon">
-                    <img src="https://via.placeholder.com/16" alt="icon" />
-                  </span>
-                </Button>
-              </div>
+      <Form>
+        <FormGroup legendText="">
+          <TextInput
+            labelText=""
+            light
+            type="password"
+            id="passcodeInput"
+            invalidText="Invalid"
+            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+            value={passcode}
+            onChange={event => setPasscode(event.target.value)}
+          />
+          <div className="pcbuttons">
+            <div className="pcverifyLater">Verify Later</div>
+            <div className="pcverifyCode">
+              <Button onClick={submitForm} id="passcodeButton" size="small">
+                Send Verification Code{' '}
+                <span className="wpicon">
+                  <img src="https://via.placeholder.com/16" alt="icon" />
+                </span>
+              </Button>
             </div>
-          </FormGroup>
-        </Form>
-        <div className="pcinfo">Didn't receive a verification code?</div>
-        <div className="pcfooter">Request a new one.</div>
-      </div>
+          </div>
+        </FormGroup>
+      </Form>
+      <div className="pcinfo">Didn't receive a verification code?</div>
+      <div className="pcfooter">Request a new one.</div>
       {redirect ? (
         <Redirect
           to={{
